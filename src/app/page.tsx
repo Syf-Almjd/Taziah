@@ -22,35 +22,35 @@ const PLAYLIST: Track[] = [
     id: 'fatiha',
     surah: 'سورة الفاتحة',
     reciter: 'الشيخ مشاري العفاسي',
-    url: 'https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3',
+    url: '/assets/audio/fatiha.mp3',
     filename: 'سورة-الفاتحة.mp3',
   },
-  {
-    id: 'Suliaman',
-    surah: 'ما تيسر من القرآن الكريم',
-    reciter: 'سليمان أبو عنزة',
-    url: '/assets/audio/suliaman.mp3',
-    filename: 'سليمان.mp3',
-  },
+  // {
+  //   id: 'Suliaman',
+  //   surah: 'ما تيسر من القرآن الكريم',
+  //   reciter: 'سليمان أبو عنزة',
+  //   url: '/assets/audio/suliaman.mp3',
+  //   filename: 'سليمان.mp3',
+  // },
   {
     id: 'ikhlas',
     surah: 'سورة الإخلاص',
     reciter: 'الشيخ مشاري العفاسي',
-    url: 'https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/112.mp3',
+    url: '/assets/audio/ikhlas.mp3',
     filename: 'سورة-الإخلاص.mp3',
   },
   {
     id: 'falaq',
     surah: 'سورة الفلق',
     reciter: 'الشيخ مشاري العفاسي',
-    url: 'https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3',
+    url: '/assets/audio/falaq.mp3',
     filename: 'سورة-الفلق.mp3',
   },
   {
     id: 'nas',
     surah: 'سورة الناس',
     reciter: 'الشيخ مشاري العفاسي',
-    url: 'https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3',
+    url: '/assets/audio/nas.mp3',
     filename: 'سورة-الناس.mp3',
   }
 ];
@@ -266,6 +266,11 @@ export default function Home() {
   const playAudio = () => {
     if (!audioRef.current) return;
     audioRef.current.play().catch((err) => {
+      // Ignore play() request interruptions by pause()
+      if (err.name === 'AbortError' || err.message?.includes('interrupted by a call to pause')) {
+        console.warn('[AudioPlayer] play interrupted by pause (harmless)');
+        return;
+      }
       captureError('audio_play', err, {
         track_id: PLAYLIST[currentTrackIndex].id,
         url: PLAYLIST[currentTrackIndex].url,
