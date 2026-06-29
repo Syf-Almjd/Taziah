@@ -202,6 +202,12 @@ export default function Home() {
     loadStats();
     loadCondolences();
 
+    // Initialize first track source on mount cleanly
+    if (audioRef.current) {
+      audioRef.current.src = PLAYLIST[0].url;
+      audioRef.current.load();
+    }
+
     // Query SQLite new condolences periodically (every 10 seconds)
     const interval = setInterval(() => {
       loadCondolences();
@@ -281,6 +287,14 @@ export default function Home() {
   };
 
   const loadTrack = (index: number, autoplay = false) => {
+    // If we click the track that is ALREADY loaded:
+    if (currentTrackIndex === index) {
+      if (autoplay) {
+        togglePlay();
+      }
+      return;
+    }
+
     setCurrentTrackIndex(index);
     setPlaySessionCounted(false);
     setProgress(0);
