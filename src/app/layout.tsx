@@ -56,7 +56,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.SENTRY_RELEASE = { id: 'mohamed-behairy@1.0.0' };
+              window.SENTRY_RELEASE = { id: 'sulaiman@1.0.0' };
               window.sentryOnLoad = function () {
                 const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
                 Sentry.init({
