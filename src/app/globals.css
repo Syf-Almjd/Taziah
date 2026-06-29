@@ -1,0 +1,814 @@
+@import "tailwindcss";
+
+@theme {
+  --color-memorial-deep: #0f1c2e;
+  --color-memorial-navy: #1a2f4a;
+  --color-memorial-slate: #2d3f56;
+  --color-memorial-mist: #e8edf2;
+  --color-memorial-pearl: #f7f9fb;
+  --color-memorial-gold: #c4a35a;
+  --color-memorial-gold-light: #d4b87a;
+
+  --font-cairo: var(--font-cairo), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: rgba(196, 163, 90, 0.2);
+  color: #0f1c2e;
+}
+
+/* ─── تأثير الضوضاء الخفيف للخلفية ─── */
+.noise-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* ─── إطار الصورة ─── */
+.photo-frame {
+  position: relative;
+  padding: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(196, 163, 90, 0.4), rgba(196, 163, 90, 0.13), rgba(196, 163, 90, 0.4));
+}
+
+.memorial-photo {
+  filter: grayscale(100%) contrast(1.08) brightness(0.95);
+}
+
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 163, 90, 0.2);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.03); }
+}
+
+/* ─── حركة السهم ─── */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* ─── بطاقات الذكريات ─── */
+.memory-card {
+  background: #f7f9fb;
+  border: 1px solid #e8edf2;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.memory-card::before {
+  content: '\201C';
+  font-family: var(--font-cairo), sans-serif;
+  font-size: 3rem;
+  color: rgba(196, 163, 90, 0.27);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  line-height: 1;
+}
+
+/* ─── Carousel الذكريات ─── */
+.memories-carousel-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.memories-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: #f7f9fb;
+  border: 1px solid #e8edf2;
+  box-shadow:
+    0 1px 2px rgba(15, 28, 46, 0.02),
+    0 8px 28px rgba(15, 28, 46, 0.06);
+  padding: 1rem;
+}
+
+.memories-carousel {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0;
+}
+
+.memories-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.memory-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 18rem;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e8edf2;
+  border-radius: 1rem;
+  padding: 2rem 1.75rem 1.25rem;
+  position: relative;
+  box-shadow:
+    0 2px 8px rgba(15, 28, 46, 0.02),
+    0 4px 16px rgba(15, 28, 46, 0.03);
+}
+
+.memories-carousel .memory-card.memory-slide {
+  background: #ffffff;
+  padding: 2rem 1.75rem 1.25rem;
+}
+
+.memories-carousel .memory-card.memory-slide::before {
+  font-size: 3.5rem;
+  color: rgba(196, 163, 90, 0.33);
+  top: 0.75rem;
+  right: 1.25rem;
+}
+
+.memory-slide::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 1rem 1rem 0 0;
+  background: linear-gradient(90deg, rgba(196, 163, 90, 0.27), #c4a35a, rgba(196, 163, 90, 0.27));
+}
+
+.memory-slide__message {
+  flex: 1;
+  color: #2d3f56;
+  font-size: 1rem;
+  line-height: 1.85;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  padding: 0.5rem 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.memory-slide__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #e8edf2;
+}
+
+.memory-slide__name {
+  color: #1a2f4a;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.memory-slide__name::before {
+  content: '— ';
+  color: #c4a35a;
+}
+
+.memory-slide__date {
+  color: rgba(45, 63, 86, 0.6);
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+  background: #f7f9fb;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.carousel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid #e8edf2;
+  color: #1a2f4a;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 28, 46, 0.03);
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: #1a2f4a;
+  border-color: #1a2f4a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.carousel-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 4.5rem;
+}
+
+.carousel-counter {
+  font-size: 0.75rem;
+  color: rgba(45, 63, 86, 0.6);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #d1d9e2;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, width 0.2s, opacity 0.2s;
+}
+
+.carousel-dot.active {
+  background: #c4a35a;
+  transform: scale(1.1);
+  width: 1.25rem;
+  border-radius: 9999px;
+  opacity: 1;
+}
+
+.carousel-dot.near {
+  background: rgba(196, 163, 90, 0.53);
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.carousel-dot.far {
+  background: rgba(196, 163, 90, 0.27);
+  opacity: 0.4;
+  transform: scale(0.8);
+}
+
+.carousel-dot:hover:not(.active) {
+  opacity: 0.85;
+  background: rgba(196, 163, 90, 0.6);
+}
+
+@media (min-width: 640px) {
+  .memories-carousel-viewport {
+    padding: 1.25rem;
+  }
+
+  .memory-slide {
+    min-height: 20rem;
+    padding: 2.25rem 2rem 1.5rem;
+  }
+
+  .memory-slide__message {
+    font-size: 1.0625rem;
+    -webkit-line-clamp: 9;
+  }
+}
+
+/* ─── عناصر التحكم — LTR ─── */
+.audio-controls {
+  direction: ltr;
+}
+
+.play-icon-offset {
+  margin-left: 2px;
+}
+
+.player-transport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.player-transport-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.mode-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.33);
+  flex-shrink: 0;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.mode-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-btn.is-active {
+  color: #d4b87a;
+}
+
+.repeat-one-badge {
+  position: absolute;
+  right: 0.15rem;
+  bottom: 0.1rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #d4b87a;
+}
+
+@media (min-width: 640px) {
+  .player-transport {
+    gap: 1.25rem;
+  }
+
+  .mode-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* ─── مشغل الصوت ─── */
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s, background 0.2s;
+}
+
+.control-btn:hover:not(:disabled) {
+  color: #d4b87a;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c4a35a, #a88a45);
+  color: #0f1c2e;
+  box-shadow: 0 4px 20px rgba(196, 163, 90, 0.27);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.play-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 28px rgba(196, 163, 90, 0.4);
+}
+
+.play-btn:active {
+  transform: scale(0.97);
+}
+
+/* شريط التقدم */
+.progress-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  cursor: pointer;
+  direction: ltr;
+}
+
+.progress-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #c4a35a;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.progress-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.progress-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #c4a35a;
+  border: none;
+  cursor: pointer;
+}
+
+/* عناصر قائمة التشغيل */
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+  transition: background 0.2s;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.playlist-item.active {
+  background: rgba(196, 163, 90, 0.13);
+  border: 1px solid rgba(196, 163, 90, 0.27);
+}
+
+.playlist-play {
+  flex: 1;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  text-align: right;
+  color: inherit;
+  transition: background 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.playlist-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.playlist-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.playlist-play:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.playlist-item.active .playlist-play {
+  color: #d4b87a;
+}
+
+.playlist-item .track-num {
+  width: 1.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.playlist-text {
+  flex: 1;
+}
+
+.playlist-reciter {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-right: auto;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8125rem;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(196, 163, 90, 0.4);
+  color: #d4b87a;
+}
+
+.download-track-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.download-track-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #d4b87a;
+}
+
+.download-track-btn:disabled {
+  opacity: 0.4;
+  cursor: wait;
+}
+
+.track-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.33);
+}
+
+.track-stats--current {
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.track-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.track-stat-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0.7;
+}
+
+.playlist-item.active .track-stats {
+  color: rgba(212, 184, 122, 0.6);
+}
+
+/* شريط تمرير مخصص */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* زر الدعاء */
+.prayer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(196, 163, 90, 0.4);
+  color: #d4b87a;
+  font-size: 0.9375rem;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.prayer-btn:hover {
+  background: rgba(196, 163, 90, 0.1);
+  border-color: #c4a35a;
+  transform: translateY(-1px);
+}
+
+/* ─── النماذج ─── */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e8edf2;
+  border-radius: 0.75rem;
+  background: #f7f9fb;
+  color: #0f1c2e;
+  font-family: var(--font-cairo), sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: rgba(196, 163, 90, 0.53);
+  box-shadow: 0 0 0 3px rgba(196, 163, 90, 0.13);
+}
+
+.form-input::placeholder {
+  color: rgba(45, 63, 86, 0.4);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  background: #1a2f4a;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  transition: background 0.2s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #0f1c2e;
+  transform: translateY(-1px);
+}
+
+/* ─── بطاقات التعازي ─── */
+.condolence-card {
+  background: #ffffff;
+  border: 1px solid #e8edf2;
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  animation: fade-in 0.4s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.condolence-card .visitor-name {
+  color: #1a2f4a;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.condolence-card .visitor-date {
+  color: rgba(45, 63, 86, 0.4);
+  font-size: 0.75rem;
+}
+
+.condolence-card .visitor-message {
+  color: #2d3f56;
+  line-height: 1.8;
+  margin-top: 0.5rem;
+}
+
+/* ─── النافذة المنبثقة ─── */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 28, 70, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  max-width: 32rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(15, 28, 46, 0.27);
+  animation: modal-in 0.3s ease;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: rgba(45, 63, 86, 0.4);
+  padding: 0.25rem;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #0f1c2e;
+}
+
+/* ─── إشعار Toast ─── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a2f4a;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(15, 28, 46, 0.27);
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+
+.toast.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px);
+  pointer-events: none;
+}
+
+/* ─── الهيدر عند التمرير ─── */
+#header.scrolled {
+  background: rgba(15, 28, 46, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 16px rgba(15, 28, 46, 0.2);
+}
+
+/* ─── روابط التنقل النشطة ─── */
+.nav-link.active {
+  color: #d4b87a;
+}
+
+/* ─── تجاوب إضافي ─── */
+@media (max-width: 640px) {
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .play-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
