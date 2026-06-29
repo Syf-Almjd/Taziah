@@ -188,7 +188,7 @@ export default function Home() {
     } catch (err) {
       console.warn("[SQLite condolences load failed, falling back to local]", err);
       try {
-        const local = localStorage.getItem("memorial_condolences_sulaiman");
+        const local = localStorage.getItem("memorial_condolences_suliaman");
         if (local) {
           const parsed = JSON.parse(local);
           setCondolences(parsed.reverse());
@@ -516,7 +516,7 @@ export default function Home() {
 
       // Local storage fallback
       try {
-        const local = localStorage.getItem("memorial_condolences_sulaiman");
+        const local = localStorage.getItem("memorial_condolences_Suliaman");
         const parsed: CondolenceItem[] = local ? JSON.parse(local) : [];
         const item: CondolenceItem = {
           id: `local-${Date.now()}`,
@@ -525,7 +525,7 @@ export default function Home() {
           date: new Date().toISOString(),
         };
         parsed.push(item);
-        localStorage.setItem("memorial_condolences_sulaiman", JSON.stringify(parsed));
+        localStorage.setItem("memorial_condolences_Suliaman", JSON.stringify(parsed));
 
         setCondolences(parsed.slice().reverse());
         setNameInput("");

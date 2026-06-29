@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     siteName: "في ذكرى سليمان أبو عنزة",
     title: "في ذكرى سليمان أبو عنزة — رحمه الله",
     description: "صفحة تعزية وذكرى — تلاواته وكلمات من الأحباء",
-    url: "https://sulaiman-abu-anza.vercel.app/",
+    url: "https://Suliaman-abu-anza.vercel.app/",
     images: [
       {
-        url: "https://sulaiman-abu-anza.vercel.app/assets/images/og-image.png",
+        url: "https://Suliaman-abu-anza.vercel.app/assets/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "سليمان أبو عنزة — رحمه الله",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "في ذكرى سليمان أبو عنزة — رحمه الله",
     description: "صفحة تعزية وذكرى — تلاواته وكلمات من الأحباء",
-    images: ["https://sulaiman-abu-anza.vercel.app/assets/images/og-image.png"],
+    images: ["https://Suliaman-abu-anza.vercel.app/assets/images/og-image.png"],
   },
 };
 
@@ -56,7 +56,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.SENTRY_RELEASE = { id: 'sulaiman@1.0.0' };
+              window.SENTRY_RELEASE = { id: 'suliaman@1.0.0' };
               window.sentryOnLoad = function () {
                 const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
                 Sentry.init({

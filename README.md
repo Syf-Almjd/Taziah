@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# In Loving Memory of Suliaman Abu Anza
 
-## Getting Started
+This project is a dedicated memorial website for the late **Suliaman Abu Anza**. It serves as a peaceful space for family, friends, and visitors to honor his memory, listen to Quran recitations, and leave messages of condolence.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Quran Recitations**: A selection of beautiful Quran recitations dedicated to his soul.
+- **Condolence Guestbook**: A space for visitors to write messages of comfort, prayers, and share their memories of Suliaman.
+- **Visitor Prayers**: A dedicated section to offer prayers (Du'a) for his peace and mercy.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How to View and Share
 
-## Learn More
+Visitors can browse the page, listen to the recitations, and send their condolences directly using the form at the bottom of the page. All messages are displayed instantly to comfort those who visit.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*We ask you to pray for mercy and forgiveness for his soul.*
